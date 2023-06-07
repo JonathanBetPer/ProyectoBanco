@@ -16,7 +16,8 @@ public class Cuenta extends JFrame{
     private JLabel labelDer;
     private JPanel panel1;
     private JLabel numeroCuenta;
-    private JList list1;
+    private JPanel panel2;
+    private JPanel panel3;
 
     private int numero;
 
@@ -32,6 +33,7 @@ public class Cuenta extends JFrame{
 
 
     public Cuenta(String nombre){
+        initComponents();
         c = Main.conexion;
 
 

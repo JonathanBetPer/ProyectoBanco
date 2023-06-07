@@ -1,10 +1,13 @@
 package BaseDeDatos;
 
+import interfaz.Cuenta;
 import interfaz.LogIn;
 
 public class Main {
 
     public static Conexion conexion;
+
+    private static String nombre;
 
 
     public static void main(String[]args){
