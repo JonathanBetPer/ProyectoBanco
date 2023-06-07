@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
-import java.util.Objects;
 
 public class LogIn extends JFrame {
     private JPanel panel1;
@@ -22,7 +20,7 @@ public class LogIn extends JFrame {
     private String contrasenaDB;
 
     private tratamientodedatos comprobar;
-    private Cuenta cuenta;
+    private PantallaPrincipal cuenta;
 
 
 
@@ -57,7 +55,7 @@ public class LogIn extends JFrame {
                 if (comprobar.comprobarContrasena(usuarioDB, contrasenaDB)){
 
                     System.out.println("Ingresado satisfactoriamente");
-                    new Cuenta(tratamientodedatos.getNombre()).setVisible(true);
+                    new PantallaPrincipal(tratamientodedatos.getNombre()).setVisible(true);
                     cerrarVentana();
 
                 }

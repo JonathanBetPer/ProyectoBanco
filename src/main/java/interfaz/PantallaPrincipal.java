@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import BaseDeDatos.Conexion;
-import BaseDeDatos.InfoCuenta;
-import BaseDeDatos.Main;
 
-public class Cuenta extends JFrame{
+import BaseDeDatos.Conexion;
+import Cuenta;
+import PaquetePrincipal.Main;
+
+public class PantallaPrincipal extends JFrame{
     private JButton verCuentasButton;
     private JButton nuevaCuentaButton;
     private JLabel labelDer;
@@ -26,13 +25,13 @@ public class Cuenta extends JFrame{
     private double saldo;
     private String fechaAlta;
     private Conexion c;
-    private InfoCuenta infoCuenta;
+    private Cuenta infoCuenta;
 
 
 
 
 
-    public Cuenta(String nombre){
+    public PantallaPrincipal(String nombre){
         initComponents();
         c = Main.conexion;
 

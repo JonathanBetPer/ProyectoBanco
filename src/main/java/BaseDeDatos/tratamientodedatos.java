@@ -1,16 +1,16 @@
 package BaseDeDatos;
 
-import interfaz.Cuenta;
 import interfaz.LogIn;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import PaquetePrincipal.Main;
 
 
-public class tratamientodedatos extends LogIn {
+
+public class tratamientodedatos {
 
     private static Conexion c;
     private static LogIn login;

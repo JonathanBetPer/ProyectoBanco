@@ -1,10 +1,11 @@
-package BaseDeDatos;
+import BaseDeDatos.Conexion;
+import PaquetePrincipal.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InfoCuenta {
+public class Cuenta {
 
     private int numero;
 
@@ -14,7 +15,7 @@ public class InfoCuenta {
     private String fechaAlta;
     private Conexion c;
 
-    public InfoCuenta(){
+    public Cuenta(){
         c = Main.conexion;
     }
 

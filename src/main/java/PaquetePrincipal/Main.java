@@ -1,6 +1,6 @@
-package BaseDeDatos;
+package PaquetePrincipal;
 
-import interfaz.Cuenta;
+import BaseDeDatos.Conexion;
 import interfaz.LogIn;
 
 public class Main {
