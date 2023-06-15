@@ -1,15 +1,13 @@
-import BaseDeDatos.Conexion;
-
 public class Main {
 
     public static Conexion conexion;
-    private static String nombre;
+    private static Usuario usuarioActual;
 
 
     public static void main(String[]args){
 
-        conexion = new Conexion("yoni13ja", 33333, "banco", "postgres", "Smr1234");
-        conexion.initConection();
+        conexion = new Conexion("yoni13ja.ddns.net", 33333, "banco", "postgres", "Smr1234");
+        conexion.iniciar();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override

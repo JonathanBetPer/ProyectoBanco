@@ -1,5 +1,3 @@
-import BaseDeDatos.Conexion;
-
 import java.util.ArrayList;
 
 public class Cuenta {

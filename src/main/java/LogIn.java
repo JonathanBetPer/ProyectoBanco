@@ -1,8 +1,3 @@
-package interfaz;
-
-import BaseDeDatos.*;
-import interfaz.PantallaPrincipal;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,16 +6,13 @@ import java.awt.event.ActionListener;
 public class LogIn extends JFrame {
     private JPanel panel1;
     private JTextField nombreUsuario;
-
     private JPasswordField contrasenaUsuario;
     private JButton iniciarSesionButton;
     private JButton registrarseButton;
-
     private String usuarioDB;
     private String contrasenaDB;
-
-    private tratamientodedatos comprobar;
     private PantallaPrincipal cuenta;
+
 
 
 
@@ -46,24 +38,25 @@ public class LogIn extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                comprobar = new tratamientodedatos();
-
                 usuarioDB = nombreUsuario.getText();
-
                 contrasenaDB= String.valueOf(contrasenaUsuario.getPassword());
 
-                if (comprobar.comprobarContrasena(usuarioDB, contrasenaDB)){
 
+                if (tratamientoDatos.verificarLogIn(Main.conexion, usuarioDB, contrasenaDB)){
                     System.out.println("Ingresado satisfactoriamente");
                     new PantallaPrincipal(tratamientodedatos.getNombre()).setVisible(true);
                     cerrarVentana();
-
                 }
-
             }
         });
 
 
+        registrarseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
 

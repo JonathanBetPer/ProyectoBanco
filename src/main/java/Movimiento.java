@@ -21,4 +21,5 @@ public class Movimiento {
                 ", con un total de " + cantidad + "€"+
                 ", descripcion: '" + descripcion;
     }
+
 }

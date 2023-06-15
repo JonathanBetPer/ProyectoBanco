@@ -1,17 +1,9 @@
-package BaseDeDatos;
-
-import com.sun.tools.javac.Main;
-import interfaz.LogIn;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-
-
-
-public abstract class tratamientodedatos {
+public abstract class tratamientoDatos {
 
     private static LogIn login;
     private static String nombre;
@@ -22,27 +14,21 @@ public abstract class tratamientodedatos {
     private static String fechaAlta;
 
 
-    public tratamientodedatos() {
+    public static boolean verificarLogIn(Conexion c, String usuario, String contrasena) {
 
-
-
-    }
-
-    public boolean comprobarContrasena(String usuario, String contrasena) {
         if (!Objects.equals(usuario, "")) {
-
             try {
 
                 String contrasenaResultado = "";
                 String nombreResultado = "";
 
 
-                PreparedStatement sql1 = Conexion.getC().prepareStatement("select contrasena from clientes where dni = ?");
+                PreparedStatement sql1 = Conexion.getC().prepareStatement("select contrasena from Clientes where dni = ?");
                 sql1.setString(1, usuario);
                 ResultSet resultContra = sql1.executeQuery();
 
 
-                PreparedStatement sql2 = Conexion.getC().prepareStatement("select nombre from clientes where dni = ?");
+                PreparedStatement sql2 = Conexion.getC().prepareStatement("select (persona).nombre from clientes where dni = ?");
                 sql2.setString(1, usuario);
                 ResultSet resultNombre = sql2.executeQuery();
 
@@ -58,7 +44,7 @@ public abstract class tratamientodedatos {
 
 
                 if (contrasenaResultado.equals(contrasena)) {
-                    System.out.println("todo bien");
+                    System.out.println("Usuario validado");
                     return true;
                 }
 
@@ -74,9 +60,10 @@ public abstract class tratamientodedatos {
 
 
 
-    public static String getNombre() {
-        return nombre;
-    }
+    public static Usuario cargarInformacion() {
 
+
+
+    }
 
 }

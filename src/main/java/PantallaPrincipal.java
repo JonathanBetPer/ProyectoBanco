@@ -1,13 +1,8 @@
-package interfaz;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import BaseDeDatos.Conexion;
-import Cuenta;
-import Main;
 
 public class PantallaPrincipal extends JFrame{
     private JButton verCuentasButton;
