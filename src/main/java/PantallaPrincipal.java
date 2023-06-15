@@ -31,7 +31,7 @@ public class PantallaPrincipal extends JFrame{
         c = Main.conexion;
 
 
-        labelDer.setText(nombre);
+        labelDer.setText(Main.usuarioActual.getNombre());
 /*
         verCuentasButton.addActionListener(new ActionListener() {
             @Override

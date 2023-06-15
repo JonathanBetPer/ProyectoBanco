@@ -54,6 +54,8 @@ public class LogIn extends JFrame {
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cerrarVentana();
+                new Registrarse().setVisible(true);
 
             }
         });

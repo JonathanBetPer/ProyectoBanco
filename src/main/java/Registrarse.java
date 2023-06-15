@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 public class Registrarse extends JFrame{
 
-    private JFrame panel1;
+    private JPanel panel1;
     private JTextField nombreField;
     private JTextField dniField;
     private JTextField correoField;
-    private JPasswordField contrasenaField;
+    private JTextField contrasenaField;
     private JButton registrarseButton;
     private JTextField calleField;
     private JTextField numeroField;
@@ -27,39 +27,34 @@ public class Registrarse extends JFrame{
 
     public Registrarse() {
 
-    initComponents();
+        initComponents();
 
 
 
-    registrarseButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        registrarseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (nombreField.getText()==null || dniField.getText()==null || correoField.getText()==null || contrasenaField.getText()==null || calleField.getText()==null || numeroField.getText()==null || localidadField.getText()==null) {
+
+                    System.out.println("Algunos de los campos está vacio");
 
 
-            if (nombreField!=null){
+                }
+                else {
+                    System.out.println("cacaccaca");
 
+                    if (tratamientoDatos.usuarioYaExiste(dniField.getText(), correoField.getText())) {
 
+                        System.out.println("El usuario ya existe");
 
-            } else if (dniField==null) {
+                    } else {
+                        tratamientoDatos.darAltaNuevoUsuario(nombreField.getText(), contrasenaField.getText(), correoField.getText(), dniField.getText(), calleField.getText(), Integer.parseInt(numeroField.getText()), localidadField.getText());
+                        System.out.println("Usuario creado!");
+                    }
 
-            } else if (correoField==null) {
-
-            } else if (contrasenaField==null) {
-
-            } else {
-
-
-
-
-
-
-                new PantallaPrincipal(dniField.getText()).setVisible(true);
-
-
+                }
             }
-
-
-        }
-    });
+        });
 }
 }
