@@ -1,18 +1,14 @@
-package PaquetePrincipal;
-
 import BaseDeDatos.Conexion;
-import interfaz.LogIn;
 
 public class Main {
 
     public static Conexion conexion;
-
     private static String nombre;
 
 
     public static void main(String[]args){
 
-        conexion = new Conexion("localhost", 5433, "Banco", "postgres", "asdasd123");
+        conexion = new Conexion("yoni13ja", 33333, "banco", "postgres", "Smr1234");
         conexion.initConection();
 
         java.awt.EventQueue.invokeLater(new Runnable() {

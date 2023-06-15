@@ -1,7 +1,7 @@
 package interfaz;
 
-
 import BaseDeDatos.*;
+import interfaz.PantallaPrincipal;
 
 import javax.swing.*;
 import java.awt.*;

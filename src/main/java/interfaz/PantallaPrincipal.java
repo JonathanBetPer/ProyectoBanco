@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import BaseDeDatos.Conexion;
 import Cuenta;
-import PaquetePrincipal.Main;
+import Main;
 
 public class PantallaPrincipal extends JFrame{
     private JButton verCuentasButton;

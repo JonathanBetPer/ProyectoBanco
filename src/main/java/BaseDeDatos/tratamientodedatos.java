@@ -1,18 +1,18 @@
 package BaseDeDatos;
 
+import com.sun.tools.javac.Main;
 import interfaz.LogIn;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-import PaquetePrincipal.Main;
 
 
 
-public class tratamientodedatos {
 
-    private static Conexion c;
+public abstract class tratamientodedatos {
+
     private static LogIn login;
     private static String nombre;
     private static int numero;
@@ -24,7 +24,6 @@ public class tratamientodedatos {
 
     public tratamientodedatos() {
 
-        c = Main.conexion;
 
 
     }

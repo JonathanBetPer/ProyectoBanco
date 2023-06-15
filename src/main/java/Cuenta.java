@@ -1,65 +1,84 @@
 import BaseDeDatos.Conexion;
-import PaquetePrincipal.Main;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Cuenta {
 
-    private int numero;
-
-    private String dniCliente;
-    private String tipo;
+    private int id;
     private double saldo;
     private String fechaAlta;
-    private Conexion c;
+    private ArrayList<Movimiento > historialMovimiento;
 
-    public Cuenta(){
-        c = Main.conexion;
+
+    public Cuenta(int id, double saldo, String fechaAlta) {
+        this.id = id;
+        this.saldo = saldo;
+        this.fechaAlta = fechaAlta;
+        this.historialMovimiento = new ArrayList<Movimiento>();
     }
 
-    public void informacionCuenta (String dniCliente){
+    public int getId() {
+        return id;
+    }
 
-        try {
+    public void setId(int id) {
+        this.id = id;
+    }
 
-            String numeroResultado = "";
-            String dniClienteResultado = "";
+    public double getSaldo() {
+        return saldo;
+    }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 
-            PreparedStatement sql1 = Conexion.getC().prepareStatement("select numero from cuentas where dnicliente = ?");
-            sql1.setString(1, dniCliente);
-            ResultSet resultNumero = sql1.executeQuery();
+    public String getFechaAlta() {
+        return fechaAlta;
+    }
 
+    public void setFechaAlta(String fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 
-            PreparedStatement sql2 = Conexion.getC().prepareStatement("select dnicliente from cuentas where dni = ?");
-            sql2.setString(1, dniCliente);
-            ResultSet resultDni = sql2.executeQuery();
+    public ArrayList<Movimiento> getHistorialMovimiento() {
+        return historialMovimiento;
+    }
 
+    public void agregarMovimiento(Movimiento nuevoMovimiento) {
+        this.historialMovimiento.add(nuevoMovimiento);
+    }
 
-            while (resultNumero.next()) {
-                numero = resultNumero.getInt("numero");
-            }
-
-            while (resultDni.next()) {
-                dniCliente = resultDni.getString("dnicliente");
-            }
-
-
-
-
-
-        } catch (SQLException j) {
-            System.out.println(j.getMessage());
-
+    public boolean ingresar(double cantidad){
+        if(cantidad>0){
+            saldo+=cantidad;
+            return true;
         }
+        System.out.println("No se puede ingresar cantidades negativas");
+        return false;
+
     }
 
-    public int getNumero() {
-        return numero;
+    public boolean retirar(double cantidad){
+
+        if(cantidad<=0){
+            System.out.println("No se puede retirar cantidades negativas");
+            return false;
+        }else if (cantidad>saldo){
+            System.out.println("Saldo insuficiente");
+            return false;
+        }else {
+            saldo-=cantidad;
+            return true;
+        }
+
     }
 
-    public String getDniCliente() {
-        return dniCliente;
+    public boolean transferencia(int idCuentaDestino, String descripcion, int cantidad){
+
+
+
     }
+
+
 }
