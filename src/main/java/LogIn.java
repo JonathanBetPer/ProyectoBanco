@@ -9,8 +9,6 @@ public class LogIn extends JFrame {
     private JPasswordField contrasenaUsuario;
     private JButton iniciarSesionButton;
     private JButton registrarseButton;
-    private String usuarioDB;
-    private String contrasenaDB;
     private PantallaPrincipal cuenta;
 
 
@@ -38,15 +36,22 @@ public class LogIn extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                usuarioDB = nombreUsuario.getText();
-                contrasenaDB= String.valueOf(contrasenaUsuario.getPassword());
+
+                String usuarioDB = nombreUsuario.getText();
+                String contrasenaDB = String.valueOf(contrasenaUsuario.getPassword());
 
 
                 if (tratamientoDatos.verificarLogIn(Main.conexion, usuarioDB, contrasenaDB)){
                     System.out.println("Ingresado satisfactoriamente");
+
+                    tratamientoDatos.
                     //new PantallaPrincipal(tratamientodedatos.getNombre()).setVisible(true);
                     cerrarVentana();
                 }
+
+
+
+
             }
         });
 

@@ -71,6 +71,10 @@ public class Usuario {
         return listaCuentas;
     }
 
+    public void setListaCuentas(ArrayList<Cuenta> listaCuentas) {
+        this.listaCuentas = listaCuentas;
+    }
+
     public void agregarCuenta(Cuenta nuevaCuenta) {
         this.listaCuentas.add(nuevaCuenta);
     }
