@@ -1,7 +1,7 @@
 public class Main {
 
     public static Conexion conexion;
-    private static Usuario usuarioActual;
+    public static Usuario usuarioActual;
 
 
     public static void main(String[]args){

@@ -2,11 +2,11 @@ public class Movimiento {
 
     private int idCuentaOrigen;
     private int idCuentaDestino;
-    private int fecha;
+    private String fecha;
     private String descripcion;
     private double cantidad;
 
-    public Movimiento(int idCuentaOrigen, int idCuentaDestino, int fecha, String descripcion, double cantidad) {
+    public Movimiento(int idCuentaOrigen, int idCuentaDestino, String fecha, String descripcion, double cantidad) {
         this.idCuentaOrigen = idCuentaOrigen;
         this.idCuentaDestino = idCuentaDestino;
         this.fecha = fecha;

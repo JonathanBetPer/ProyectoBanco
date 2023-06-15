@@ -26,7 +26,7 @@ public class PantallaPrincipal extends JFrame{
 
 
 
-    public PantallaPrincipal(String nombre){
+    public PantallaPrincipal(){
         initComponents();
         c = Main.conexion;
 

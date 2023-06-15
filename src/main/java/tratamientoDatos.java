@@ -104,8 +104,13 @@ public abstract class tratamientoDatos {
                 sql1.setString(5, localidad);
                 sql1.setString(6, correo);
                 sql1.setString(7, contrasena);
-
                 ResultSet resultado = sql1.executeQuery();
+
+
+                PreparedStatement sql2 = Conexion.getC().prepareStatement("INSERT INTO Cuentas VALUES (DEFAULT, ?, 15.95, DEFAULT);");
+                sql2.setString(1, DNI);
+                ResultSet resultado2 = sql2.executeQuery();
+
 
                 return true;
 
@@ -125,7 +130,6 @@ public abstract class tratamientoDatos {
             try {
 
                 String nombre = "", DNI = "", correo = "", contrasena = "", direccion = "", fechaRegistro = "";
-                ArrayList<Cuenta> listaCuentas;
 
 
                 PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from clientes where dni = ?");
@@ -144,9 +148,15 @@ public abstract class tratamientoDatos {
                     correo = resultado.getString("correo");
                 }
 
-
+                //Carga el usuario
                 Usuario nuevoUsuario = new Usuario(nombre, DNI, correo, contrasena, direccion, fechaRegistro);
 
+
+                //Le añade sus cuentas
+                nuevoUsuario.setListaCuentas(cargarCuentas(nuevoUsuario));
+
+                //le añade los movimientos a cada una de sus cuentas
+                nuevoUsuario.setListaCuentas(cargarMovimientos(nuevoUsuario.getListaCuentas()));
 
                 return nuevoUsuario;
 
@@ -159,7 +169,80 @@ public abstract class tratamientoDatos {
 
     }
 
-    private static ArrayList<Cuenta> cargarCuentas
+    private static ArrayList<Cuenta> cargarCuentas(Usuario usuario){
+
+        ArrayList<Cuenta> listaDeCuentas = new ArrayList<>();
+        int id;
+        double saldo;
+        String fechaAlta;
+
+        try {
+
+            PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from cuentas where dni = ?");
+            sql1.setString(1, usuario.getDNI());
+            ResultSet resultado = sql1.executeQuery();
+
+
+            while (resultado.next()) {
+                id = Integer.parseInt(resultado.getString("id"));
+                saldo = Double.parseDouble(resultado.getString("saldo"));
+                fechaAlta = resultado.getString("fechaaalta");
+
+                Cuenta nuevaCuenta = new Cuenta(id, saldo, fechaAlta);
+
+                listaDeCuentas.add(nuevaCuenta);
+            }
+
+
+            return listaDeCuentas;
+
+        } catch (SQLException j) {
+            System.out.println(j.getMessage());
+        }
+
+        return listaDeCuentas;
+
+    }
+
+
+    private static ArrayList<Cuenta> cargarMovimientos(ArrayList<Cuenta> listaCuentas){
+
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        int idOrigen, idDestino;
+        double cantidad;
+        String fecha, descripcion;
+
+        try {
+
+
+            for (Cuenta e:listaCuentas) {
+
+                PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from cuentas where cuentaorigen = ?");
+                sql1.setString(1, String.valueOf(e.getId()));
+                ResultSet resultado = sql1.executeQuery();
+                while (resultado.next()) {
+                    idOrigen = Integer.parseInt(resultado.getString("cuentaorigen"));
+                    idDestino = Integer.parseInt(resultado.getString("cuentadestino"));
+                    fecha = resultado.getString("fecha");
+                    descripcion = resultado.getString("descripcion");
+                    cantidad = Double.parseDouble(resultado.getString("cantidad"));
+
+
+                    Movimiento nuevoMovimiento = new Movimiento(idOrigen, idDestino, fecha, descripcion, cantidad);
+
+                    e.agregarMovimiento(nuevoMovimiento);
+                }
+            }
+
+            return listaCuentas;
+
+        } catch (SQLException j) {
+            System.out.println(j.getMessage());
+        }
+
+        return listaCuentas;
+
+    }
 
 
 }
