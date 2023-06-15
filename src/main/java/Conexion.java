@@ -1,7 +1,16 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+/**
+ * Clase Conexión
+ * Se coonecta a la BBDD
+ *
+ * @since 06/06/2023
+ * @author JonathanBetPer
+ * @author carlosaldea3
+ * @author AlejandroYgr
+ * @version 1.0
+ */
 public class Conexion  {
 
     private static Connection c;

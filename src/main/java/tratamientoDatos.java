@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 /**
  * Clase Tratamiento De Datos
- * Realiza las
+ * Realiza las operaciones CRUD a la BBDD
  *
  * @since 06/06/2023
  * @author JonathanBetPer

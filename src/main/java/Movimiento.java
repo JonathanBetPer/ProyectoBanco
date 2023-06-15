@@ -1,3 +1,13 @@
+/**
+ * Clase Movimiento
+ * Guarda la información de las transferencias entre las distintas cuentas.
+ *
+ * @since 06/06/2023
+ * @author JonathanBetPer
+ * @author carlosaldea3
+ * @author AlejandroYgr
+ * @version 1.0
+ */
 public class Movimiento {
 
     private int idCuentaOrigen;

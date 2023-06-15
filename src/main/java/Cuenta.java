@@ -1,5 +1,13 @@
 import java.util.ArrayList;
-
+/**
+ * Clase Cuenta que controla toda la información de una Cuenta Bancaria
+ *
+ * @since 06/06/2023
+ * @author JonathanBetPer
+ * @author carlosaldea3
+ * @author AlejandroYgr
+ * @version 1.0
+ */
 public class Cuenta {
 
     private int id;
