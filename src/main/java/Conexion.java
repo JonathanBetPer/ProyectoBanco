@@ -5,11 +5,8 @@ import java.sql.SQLException;
 public class Conexion  {
 
     private static Connection c;
-
     private String usuario;
-
     private String password;
-
     private String url;
 
 

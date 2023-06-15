@@ -1,3 +1,12 @@
+/**
+ * Clase Principal de Proyecto Banco
+ *
+ * @since 06/06/2023
+ * @author JonathanBetPer
+ * @author carlosaldea3
+ * @author AlejandroYgr
+ * @version 1.0
+ */
 public class Main {
 
     public static Conexion conexion;

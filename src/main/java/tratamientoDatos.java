@@ -3,12 +3,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
+/**
+ * Clase Tratamiento De Datos
+ * Realiza las
+ *
+ * @since 06/06/2023
+ * @author JonathanBetPer
+ * @author carlosaldea3
+ * @author AlejandroYgr
+ * @version 1.0
+ */
 
 public abstract class tratamientoDatos {
-
-    private static LogIn login;
-
-
 
     public static boolean verificarLogIn(Conexion c, String usuario, String contrasena) {
 
@@ -96,21 +102,18 @@ public abstract class tratamientoDatos {
 
             try {
 
-                PreparedStatement sql1 = Conexion.getC().prepareStatement("INSERT INTO Clientes VALUES (?, (?, (?, ? , ?)), ?, ?, DEFAULT);");
+                PreparedStatement sql1 = Conexion.getC().prepareStatement("INSERT INTO Clientes VALUES (?, (?, (?, ?, ?)), ?, ?, DEFAULT);");
                 sql1.setString(1, DNI);
                 sql1.setString(2, nombre);
                 sql1.setString(3, calle);
-                sql1.setString(4, cadenaNumero);
+                sql1.setInt(4, numero);
                 sql1.setString(5, localidad);
                 sql1.setString(6, correo);
                 sql1.setString(7, contrasena);
                 ResultSet resultado = sql1.executeQuery();
 
 
-                PreparedStatement sql2 = Conexion.getC().prepareStatement("INSERT INTO Cuentas VALUES (DEFAULT, ?, 15.95, DEFAULT);");
-                sql2.setString(1, DNI);
-                ResultSet resultado2 = sql2.executeQuery();
-
+                nuevaCuenta(DNI);
 
                 return true;
 
@@ -124,25 +127,24 @@ public abstract class tratamientoDatos {
 
 
 
-    public static Usuario cargarInformacion(String usuario) {
+    public static  Usuario cargarInformacion(String dniUsuario) {
 
-        if (!Objects.equals(usuario, "")) {
+        if (!Objects.equals(dniUsuario, "")) {
             try {
 
-                String nombre = "", DNI = "", correo = "", contrasena = "", direccion = "", fechaRegistro = "";
+                String nombre="",  DNI = "", correo = "", contrasena = "", fechaRegistro = "", direccion="";
 
-
-                PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from clientes where dni = ?");
-                sql1.setString(1, usuario);
+                PreparedStatement sql1 = Conexion.getC().prepareStatement("select dni, (persona).nombre, (persona).direccion.calle, (persona).direccion.numero, (persona).direccion.localidad, contrasena, correo, fecharegistro  from clientes where dni = ?;");
+                sql1.setString(1, dniUsuario);
                 ResultSet resultado = sql1.executeQuery();
 
 
                 while (resultado.next()) {
                     DNI = resultado.getString("dni");
-                    nombre = resultado.getString("(persona).nombre");
-                    direccion = resultado.getString("(persona).(direccion).calle") + " nº " +
-                            resultado.getString("(persona).(direccion).numero") + ", " +
-                            resultado.getString("(persona).(direccion).localidad");
+                    nombre = resultado.getString("nombre");
+                    direccion = resultado.getString("calle") + " nº " +
+                            resultado.getString("numero") + ", " +
+                            resultado.getString("localidad");
                     contrasena = resultado.getString("contrasena");
                     fechaRegistro = resultado.getString("fechaRegistro");
                     correo = resultado.getString("correo");
@@ -150,6 +152,7 @@ public abstract class tratamientoDatos {
 
                 //Carga el usuario
                 Usuario nuevoUsuario = new Usuario(nombre, DNI, correo, contrasena, direccion, fechaRegistro);
+
 
 
                 //Le añade sus cuentas
@@ -171,6 +174,7 @@ public abstract class tratamientoDatos {
 
     private static ArrayList<Cuenta> cargarCuentas(Usuario usuario){
 
+        System.out.println(usuario.getDNI());
         ArrayList<Cuenta> listaDeCuentas = new ArrayList<>();
         int id;
         double saldo;
@@ -178,7 +182,7 @@ public abstract class tratamientoDatos {
 
         try {
 
-            PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from cuentas where dni = ?");
+            PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from cuentas where dnicliente = ?");
             sql1.setString(1, usuario.getDNI());
             ResultSet resultado = sql1.executeQuery();
 
@@ -186,7 +190,7 @@ public abstract class tratamientoDatos {
             while (resultado.next()) {
                 id = Integer.parseInt(resultado.getString("id"));
                 saldo = Double.parseDouble(resultado.getString("saldo"));
-                fechaAlta = resultado.getString("fechaaalta");
+                fechaAlta = resultado.getString("fechealta");
 
                 Cuenta nuevaCuenta = new Cuenta(id, saldo, fechaAlta);
 
@@ -214,18 +218,17 @@ public abstract class tratamientoDatos {
 
         try {
 
-
             for (Cuenta e:listaCuentas) {
 
-                PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from cuentas where cuentaorigen = ?");
-                sql1.setString(1, String.valueOf(e.getId()));
+                PreparedStatement sql1 = Conexion.getC().prepareStatement("select * from movimientos where cuentaorigen = ?");
+                sql1.setInt(1, e.getId());
                 ResultSet resultado = sql1.executeQuery();
                 while (resultado.next()) {
-                    idOrigen = Integer.parseInt(resultado.getString("cuentaorigen"));
-                    idDestino = Integer.parseInt(resultado.getString("cuentadestino"));
+                    idOrigen = resultado.getInt("cuentaorigen");
+                    idDestino = resultado.getInt("cuentadestino");
                     fecha = resultado.getString("fecha");
                     descripcion = resultado.getString("descripcion");
-                    cantidad = Double.parseDouble(resultado.getString("cantidad"));
+                    cantidad = resultado.getDouble("cantidad");
 
 
                     Movimiento nuevoMovimiento = new Movimiento(idOrigen, idDestino, fecha, descripcion, cantidad);
@@ -243,6 +246,42 @@ public abstract class tratamientoDatos {
         return listaCuentas;
 
     }
+
+    public static boolean actualizarCuenta(int idCuenta, double cantidad){
+        try {
+
+            PreparedStatement sql1 = Conexion.getC().prepareStatement("UPDATE CUENTAS SET saldo = saldo+? WHERE id = ?");
+            sql1.setDouble(1, cantidad);
+            sql1.setInt(2,idCuenta);
+            ResultSet resultado = sql1.executeQuery();
+
+            return true;
+
+        } catch (SQLException j) {
+            System.out.println(j.getMessage());
+        }
+
+        return false;
+
+    }
+
+    public static boolean nuevaCuenta(String DNI){
+        try {
+            PreparedStatement sql2 = Conexion.getC().prepareStatement("INSERT INTO Cuentas VALUES (DEFAULT, ?, 15.95, DEFAULT);");
+            sql2.setString(1, DNI);
+            ResultSet resultado2 = sql2.executeQuery();
+            return true;
+
+        } catch (SQLException j) {
+            System.out.println(j.getMessage());
+        }
+
+        return false;
+
+    }
+
+
+
 
 
 }

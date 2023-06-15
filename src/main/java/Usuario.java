@@ -1,5 +1,13 @@
 import java.util.ArrayList;
-
+/**
+ * Clase Usuario
+ *
+ * @since 06/06/2023
+ * @author JonathanBetPer
+ * @author carlosaldea3
+ * @author AlejandroYgr
+ * @version 1.0
+ */
 public class Usuario {
     private String nombre;
     private String DNI;
