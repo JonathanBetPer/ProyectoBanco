@@ -44,7 +44,7 @@ public class LogIn extends JFrame {
 
                 if (tratamientoDatos.verificarLogIn(Main.conexion, usuarioDB, contrasenaDB)){
                     System.out.println("Ingresado satisfactoriamente");
-                    new PantallaPrincipal(tratamientodedatos.getNombre()).setVisible(true);
+                    //new PantallaPrincipal(tratamientodedatos.getNombre()).setVisible(true);
                     cerrarVentana();
                 }
             }

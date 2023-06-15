@@ -32,13 +32,15 @@ public class PantallaPrincipal extends JFrame{
 
 
         labelDer.setText(nombre);
-
+/*
         verCuentasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 numeroCuenta.setText(String.valueOf(infoCuenta.getNumero()));
             }
         });
+
+ */
     }
 
     public void initComponents(){

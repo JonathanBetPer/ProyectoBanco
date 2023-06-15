@@ -60,10 +60,6 @@ public abstract class tratamientoDatos {
 
 
 
-    public static Usuario cargarInformacion() {
-
-
-
-    }
+    //public static Usuario cargarInformacion() {}
 
 }

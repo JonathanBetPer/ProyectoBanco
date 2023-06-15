@@ -72,11 +72,6 @@ public class Cuenta {
 
     }
 
-    public boolean transferencia(int idCuentaDestino, String descripcion, int cantidad){
-
-
-
-    }
-
+   // public boolean transferencia(int idCuentaDestino, String descripcion, int cantidad){}
 
 }
